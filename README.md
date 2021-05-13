@@ -1,2 +1,2 @@
 # calculadora-imc-app
- Meu app de IMC
+ Meu app de IMC.

@@ -1,53 +1,49 @@
-package com.example.calculadoraimc;
+package com.example.calculadoraimc
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity
+import android.widget.EditText
+import android.widget.TextView
+import android.os.Bundle
+import com.example.calculadoraimc.R
+import android.content.Intent
+import android.view.View
+import com.example.calculadoraimc.secundActivity
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
+class MainActivity : AppCompatActivity() {
+    private var editPeso: EditText? = null
+    private var editAltura: EditText? = null
+    private var textResultado: TextView? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
-public class MainActivity extends AppCompatActivity {
-
-    private EditText editPeso;
-    private EditText editAltura;
-    private TextView textResultado;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        editPeso = findViewById(R.id.editPeso);
-        editAltura = findViewById(R.id.editAltura);
-        textResultado = findViewById(R.id.textResultado);
-
-    }
-    public void textIMC(View View){
-
-        double peso = Double.parseDouble(editPeso.getText().toString());
-        double altura = Double.parseDouble(editAltura.getText().toString());
-
-        double imc = peso/(altura*altura);
-
-        if(imc >= 0 && imc <= 18.49){
-            textResultado.setText("Magreza, IMC = "+imc);
-        }
-        else if(imc >= 18.5 && imc <= 24.99){
-            textResultado.setText("normal, IMC = "+imc);
-        }
-        else if (imc >= 25.0 && imc <= 29.99){
-            textResultado.setText("Sobrepeso , IMC = "+imc);
-        }
-        else if (imc >= 30.0 && imc <= 39.99){
-            textResultado.setText("Obesidade, IMC = "+imc);
-        }
-        else if (imc >= 40){
-            textResultado.setText("Obesidade Grave, IMC = "+imc);
-        }
-
-
-
+        editPeso = findViewById(R.id.editPeso)
+        editAltura = findViewById(R.id.editAltura)
+        textResultado = findViewById(R.id.textResultado)
     }
 
+    fun textIMC(View: View?) {
+        val peso = editPeso!!.text.toString().toDouble()
+        val altura = editAltura!!.text.toString().toDouble()
+        val imc = peso / (altura * altura)
+
+        val intent = Intent(this, secundActivity::class.java)
+        startActivity(intent)
+
+        if (imc >= 0 && imc <= 18.49) {
+            textResultado!!.text = "Magreza, IMC = $imc"
+        }
+        else if (imc >= 18.5 && imc <= 24.99) {
+            textResultado!!.text = "normal, IMC = $imc"
+        }
+        else if (imc >= 25.0 && imc <= 29.99) {
+            textResultado!!.text = "Sobrepeso , IMC = $imc"
+        }
+        else if (imc >= 30.0 && imc <= 39.99) {
+            textResultado!!.text = "Obesidade, IMC = $imc"
+        }
+        else if (imc >= 40) {
+            textResultado!!.text = "Obesidade Grave, IMC = $imc"
+        }
+    }
 }
