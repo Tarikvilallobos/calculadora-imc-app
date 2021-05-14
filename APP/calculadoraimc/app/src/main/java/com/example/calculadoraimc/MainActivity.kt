@@ -7,9 +7,13 @@ import android.os.Bundle
 import com.example.calculadoraimc.R
 import android.content.Intent
 import android.view.View
-import com.example.calculadoraimc.secundActivity
 
 class MainActivity : AppCompatActivity() {
+    companion object{
+        public const val EXTRA_ALTURA: String = "EXTRA_ALTURA"
+        public const val EXTRA_PESO: String = "EXTRA_PESO"
+    }
+
     private var editPeso: EditText? = null
     private var editAltura: EditText? = null
     private var textResultado: TextView? = null
@@ -25,25 +29,17 @@ class MainActivity : AppCompatActivity() {
     fun textIMC(View: View?) {
         val peso = editPeso!!.text.toString().toDouble()
         val altura = editAltura!!.text.toString().toDouble()
-        val imc = peso / (altura * altura)
 
-        val intent = Intent(this, secundActivity::class.java)
+
+        val intent = Intent (this, SecundActivity::class.java)
+
+        val bundle = Bundle()
+        bundle.putDouble(EXTRA_PESO, peso)
+        bundle.putDouble(EXTRA_ALTURA, altura)
+
+        intent.putExtras( bundle)
         startActivity(intent)
 
-        if (imc >= 0 && imc <= 18.49) {
-            textResultado!!.text = "Magreza, IMC = $imc"
-        }
-        else if (imc >= 18.5 && imc <= 24.99) {
-            textResultado!!.text = "normal, IMC = $imc"
-        }
-        else if (imc >= 25.0 && imc <= 29.99) {
-            textResultado!!.text = "Sobrepeso , IMC = $imc"
-        }
-        else if (imc >= 30.0 && imc <= 39.99) {
-            textResultado!!.text = "Obesidade, IMC = $imc"
-        }
-        else if (imc >= 40) {
-            textResultado!!.text = "Obesidade Grave, IMC = $imc"
-        }
+
     }
 }
